@@ -1,0 +1,7 @@
+{
+  "name": "careervault-shared",
+  "version": "1.0.0",
+  "description": "Shared schemas and utilities for CareerVault",
+  "main": "schemas/index.js",
+  "type": "module"
+}
