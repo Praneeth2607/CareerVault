@@ -10,13 +10,23 @@ import { getSchemaByType } from '../../../shared/schemas/index.js';
 export default function DynamicForm({ assetType, initialData, onSubmit, onCancel }) {
   const schema = getSchemaByType(assetType);
   const [formData, setFormData] = useState({});
+  const [tagInputs, setTagInputs] = useState({});
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (initialData) {
       setFormData(initialData);
+      if (schema) {
+        const initialTags = {};
+        schema.fields.forEach(f => {
+          if (f.type === 'tags' && initialData[f.key]) {
+            initialTags[f.key] = initialData[f.key].join(', ');
+          }
+        });
+        setTagInputs(initialTags);
+      }
     }
-  }, [initialData]);
+  }, [initialData, schema]);
 
   if (!schema) return <div>Invalid Asset Type</div>;
 
@@ -25,21 +35,27 @@ export default function DynamicForm({ assetType, initialData, onSubmit, onCancel
   };
 
   const handleTagsChange = (key, value) => {
-    // simple comma separated tags
-    const tagsArray = value.split(',').map(t => t.trim()).filter(Boolean);
-    setFormData(prev => ({ ...prev, [key]: tagsArray }));
+    setTagInputs(prev => ({ ...prev, [key]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
+    const finalData = { ...formData };
+    schema.fields.forEach(f => {
+      if (f.type === 'tags' && tagInputs[f.key]) {
+        finalData[f.key] = tagInputs[f.key].split(',').map(t => t.trim()).filter(Boolean);
+      }
+    });
+
     try {
       if (initialData?.id) {
         // update
-        await api.put(`/assets/${initialData.id}`, { title: formData.title || 'Untitled', values: formData });
+        await api.put(`/assets/${initialData.id}`, { title: formData.title || 'Untitled', values: finalData });
       } else {
         // create
-        await api.post('/assets', { assetType, title: formData.title || formData.summary || formData.organization || 'Untitled', values: formData });
+        await api.post('/assets', { assetType, title: formData.title || 'Untitled', values: finalData });
       }
       onSubmit();
     } catch (error) {
@@ -52,6 +68,18 @@ export default function DynamicForm({ assetType, initialData, onSubmit, onCancel
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="flex flex-col">
+        <label className="text-sm font-medium text-heading mb-1">Title *</label>
+        <input
+          type="text"
+          required
+          className="w-full h-12 px-4 bg-bg-primary rounded-md shadow-pressed outline-none focus:ring-2 focus:ring-primary/20 text-heading placeholder-heading/40"
+          value={formData.title || ''}
+          onChange={(e) => handleChange('title', e.target.value)}
+          placeholder="Enter a title for this entry..."
+        />
+      </div>
+
       {schema.fields.map((field) => {
         return (
           <div key={field.key} className="flex flex-col">
@@ -70,7 +98,7 @@ export default function DynamicForm({ assetType, initialData, onSubmit, onCancel
                 required={field.required}
                 placeholder="Comma separated tags"
                 className="w-full h-12 px-4 bg-bg-primary rounded-md shadow-pressed outline-none focus:ring-2 focus:ring-primary/20 text-heading placeholder-heading/40"
-                value={(formData[field.key] || []).join(', ')}
+                value={tagInputs[field.key] || ''}
                 onChange={(e) => handleTagsChange(field.key, e.target.value)}
               />
             ) : (

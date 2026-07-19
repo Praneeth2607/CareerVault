@@ -1,7 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Folder, Briefcase, Award } from 'lucide-react';
+import api from '../services/api';
 
 export default function Dashboard() {
+  const [stats, setStats] = useState({ projects: 0, experience: 0, skills: 0 });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const res = await api.get('/dashboard/stats');
+        if (res.data.success) {
+          setStats(res.data.data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch dashboard stats', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchStats();
+  }, []);
+
+  if (loading) return <div className="p-8 text-heading/50">Loading dashboard...</div>;
+
   return (
     <div className="space-y-8">
       <div>
@@ -16,7 +38,7 @@ export default function Dashboard() {
           </div>
           <div>
             <p className="text-sm font-medium text-heading/70">Total Projects</p>
-            <p className="text-3xl font-heading font-bold text-primary">12</p>
+            <p className="text-3xl font-heading font-bold text-primary">{stats.projects}</p>
           </div>
         </div>
 
@@ -26,7 +48,7 @@ export default function Dashboard() {
           </div>
           <div>
             <p className="text-sm font-medium text-heading/70">Experience Entries</p>
-            <p className="text-3xl font-heading font-bold text-secondary">4</p>
+            <p className="text-3xl font-heading font-bold text-secondary">{stats.experience}</p>
           </div>
         </div>
 
@@ -36,7 +58,7 @@ export default function Dashboard() {
           </div>
           <div>
             <p className="text-sm font-medium text-heading/70">Skills Tracked</p>
-            <p className="text-3xl font-heading font-bold text-accent">24</p>
+            <p className="text-3xl font-heading font-bold text-accent">{stats.skills}</p>
           </div>
         </div>
       </div>
