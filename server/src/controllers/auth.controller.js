@@ -14,8 +14,10 @@ export const register = async (req, res) => {
     res.status(201).json({ success: true, message: 'Registration successful', data: user });
   } catch (error) {
     if (error instanceof z.ZodError) {
+      console.error('Validation failed:', error.errors);
       return res.status(400).json({ success: false, message: 'Validation failed', errors: error.errors });
     }
+    console.error('Registration error:', error);
     res.status(400).json({ success: false, message: error.message, errors: [] });
   }
 };
@@ -36,6 +38,7 @@ export const login = async (req, res) => {
     const result = await authService.login({ email, password, deviceInfo });
     res.status(200).json({ success: true, message: 'Login successful', data: result });
   } catch (error) {
+    console.error('Login error:', error);
     res.status(401).json({ success: false, message: error.message, errors: [] });
   }
 };
