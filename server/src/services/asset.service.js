@@ -1,4 +1,5 @@
 import * as assetRepo from '../repositories/asset.repository.js';
+import * as tagRepo from '../repositories/tag.repository.js';
 import { getSchemaByType } from '../../../shared/schemas/index.js';
 
 const validateValues = (assetType, values) => {
@@ -18,12 +19,31 @@ const validateValues = (assetType, values) => {
   return validated;
 };
 
+const extractTags = (assetType, values) => {
+  const schema = getSchemaByType(assetType);
+  let allTags = [];
+  for (const field of schema.fields) {
+    if (field.type === 'tags' && Array.isArray(values[field.key])) {
+      allTags.push(...values[field.key]);
+    }
+  }
+  return [...new Set(allTags)];
+};
+
 export const createAsset = async (userId, data) => {
   const { assetType, title, values } = data;
   if (!assetType || !title) throw new Error('assetType and title are required');
   
   const validatedValues = validateValues(assetType, values || {});
-  return assetRepo.createAsset({ userId, assetType, title, values: validatedValues });
+  const asset = await assetRepo.createAsset({ userId, assetType, title, values: validatedValues });
+  
+  const tags = extractTags(assetType, validatedValues);
+  if (tags.length > 0) {
+    const tagIds = await tagRepo.upsertTags(userId, tags);
+    await tagRepo.syncAssetTags(asset.id, tagIds);
+  }
+  
+  return asset;
 };
 
 export const updateAsset = async (id, userId, data) => {
@@ -37,7 +57,13 @@ export const updateAsset = async (id, userId, data) => {
     validatedValues = validateValues(existingAsset.asset_type, { ...existingAsset.values, ...data.values });
   }
 
-  return assetRepo.updateAsset(id, userId, { title, values: validatedValues });
+  const updatedAsset = await assetRepo.updateAsset(id, userId, { title, values: validatedValues });
+  
+  const tags = extractTags(existingAsset.asset_type, validatedValues);
+  const tagIds = tags.length > 0 ? await tagRepo.upsertTags(userId, tags) : [];
+  await tagRepo.syncAssetTags(id, tagIds);
+  
+  return updatedAsset;
 };
 
 export const getAssets = async (userId, filters) => {

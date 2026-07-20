@@ -101,9 +101,21 @@ export default function DynamicForm({ assetType, initialData, onSubmit, onCancel
                 value={tagInputs[field.key] || ''}
                 onChange={(e) => handleTagsChange(field.key, e.target.value)}
               />
+            ) : field.type === 'select' ? (
+              <select
+                required={field.required}
+                className="w-full h-12 px-4 bg-bg-primary rounded-md shadow-pressed outline-none focus:ring-2 focus:ring-primary/20 text-heading appearance-none"
+                value={formData[field.key] || ''}
+                onChange={(e) => handleChange(field.key, e.target.value)}
+              >
+                <option value="" disabled>Select an option</option>
+                {field.options?.map(opt => (
+                  <option key={opt} value={opt}>{opt}</option>
+                ))}
+              </select>
             ) : (
               <input
-                type={field.type === 'url' ? 'url' : 'text'}
+                type={field.type === 'url' ? 'url' : field.type === 'number' ? 'number' : field.type === 'date' ? 'date' : 'text'}
                 required={field.required}
                 className="w-full h-12 px-4 bg-bg-primary rounded-md shadow-pressed outline-none focus:ring-2 focus:ring-primary/20 text-heading placeholder-heading/40"
                 value={formData[field.key] || ''}

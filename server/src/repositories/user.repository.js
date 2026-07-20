@@ -23,7 +23,13 @@ export const getUserByUsername = async (username) => {
 };
 
 export const getUserById = async (id) => {
-  const sql = `SELECT id, username, email, auth_provider, created_at FROM users WHERE id = $1`;
+  const sql = `SELECT id, username, email, auth_provider, created_at, password_hash FROM users WHERE id = $1`;
   const result = await query(sql, [id]);
+  return result.rows[0];
+};
+
+export const updatePassword = async (id, newPasswordHash) => {
+  const sql = `UPDATE users SET password_hash = $1 WHERE id = $2 RETURNING id`;
+  const result = await query(sql, [newPasswordHash, id]);
   return result.rows[0];
 };
