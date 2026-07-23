@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import * as userRepo from '../repositories/user.repository.js';
 import * as sessionRepo from '../repositories/session.repository.js';
+import * as auditRepo from '../repositories/audit.repository.js';
 
 const SALT_ROUNDS = 12; // Required by Security.md
 
@@ -21,6 +22,8 @@ export const register = async ({ username, email, password }) => {
     passwordHash,
     authProvider: 'LOCAL'
   });
+
+  await auditRepo.logAction(user.id, 'REGISTER', 'USER', user.id);
 
   return user;
 };
@@ -55,9 +58,12 @@ export const login = async ({ email, password, deviceInfo }) => {
     { expiresIn: '15m' }
   );
 
+  await auditRepo.logAction(user.id, 'LOGIN', 'SESSION', session.id);
+
   return {
     accessToken,
     refreshToken,
+    sessionId: session.id,
     user: {
       id: user.id,
       username: user.username,

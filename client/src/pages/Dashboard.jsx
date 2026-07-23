@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Folder, Briefcase, Award } from 'lucide-react';
+import { Folder, Briefcase, Award, Bookmark, Microscope, FileText, Settings } from 'lucide-react';
 import api from '../services/api';
 
 export default function Dashboard() {
-  const [stats, setStats] = useState({ projects: 0, experience: 0, skills: 0 });
+  const [stats, setStats] = useState({ 
+    projects: 0, 
+    experience: 0, 
+    skills: 0,
+    achievements: 0,
+    research: 0,
+    resumeAssets: 0
+  });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -49,6 +56,36 @@ export default function Dashboard() {
           <div>
             <p className="text-sm font-medium text-heading/70">Experience Entries</p>
             <p className="text-3xl font-heading font-bold text-secondary">{stats.experience}</p>
+          </div>
+        </div>
+
+        <div className="bg-bg-card p-6 rounded-card shadow-raised flex items-center space-x-5 transition-transform hover:-translate-y-1">
+          <div className="p-4 bg-emerald-500/10 rounded-full text-emerald-500">
+            <Bookmark className="w-8 h-8" />
+          </div>
+          <div>
+            <p className="text-sm font-medium text-heading/70">Achievements</p>
+            <p className="text-3xl font-heading font-bold text-emerald-500">{stats.achievements}</p>
+          </div>
+        </div>
+
+        <div className="bg-bg-card p-6 rounded-card shadow-raised flex items-center space-x-5 transition-transform hover:-translate-y-1">
+          <div className="p-4 bg-indigo-500/10 rounded-full text-indigo-500">
+            <Microscope className="w-8 h-8" />
+          </div>
+          <div>
+            <p className="text-sm font-medium text-heading/70">Research Papers</p>
+            <p className="text-3xl font-heading font-bold text-indigo-500">{stats.research}</p>
+          </div>
+        </div>
+
+        <div className="bg-bg-card p-6 rounded-card shadow-raised flex items-center space-x-5 transition-transform hover:-translate-y-1">
+          <div className="p-4 bg-rose-500/10 rounded-full text-rose-500">
+            <FileText className="w-8 h-8" />
+          </div>
+          <div>
+            <p className="text-sm font-medium text-heading/70">Resume Assets</p>
+            <p className="text-3xl font-heading font-bold text-rose-500">{stats.resumeAssets}</p>
           </div>
         </div>
 

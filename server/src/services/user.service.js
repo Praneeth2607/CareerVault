@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import * as userRepo from '../repositories/user.repository.js';
+import * as auditRepo from '../repositories/audit.repository.js';
 
 const SALT_ROUNDS = 12;
 
@@ -22,4 +23,6 @@ export const changePassword = async (userId, oldPassword, newPassword) => {
   
   const newPasswordHash = await bcrypt.hash(newPassword, SALT_ROUNDS);
   await userRepo.updatePassword(userId, newPasswordHash);
+  
+  await auditRepo.logAction(userId, 'PASSWORD_CHANGE', 'USER', userId);
 };
