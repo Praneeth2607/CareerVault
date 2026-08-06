@@ -92,3 +92,56 @@ export const refresh = async (refreshToken, sessionId) => {
   );
   return accessToken;
 };
+
+export const forgotPassword = async (email) => {
+  const user = await userRepo.getUserByEmail(email);
+  if (!user) {
+    throw new Error('User not found');
+  }
+  if (user.auth_provider !== 'LOCAL') {
+    throw new Error('Password reset is only supported for local accounts');
+  }
+
+  const resetToken = jwt.sign(
+    { userId: user.id, purpose: 'password-reset' },
+    process.env.JWT_SECRET || 'fallback_secret_for_dev',
+    { expiresIn: '15m' }
+  );
+
+  const resetLink = `http://localhost:5173/login?resetToken=${resetToken}`;
+  console.log(`\n======================================================`);
+  console.log(`[SIMULATED EMAIL] Password Reset Link for ${email}:`);
+  console.log(resetLink);
+  console.log(`======================================================\n`);
+
+  return { resetLink };
+};
+
+export const resetPassword = async (token, newPassword) => {
+  let decoded;
+  try {
+    decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback_secret_for_dev');
+  } catch (err) {
+    throw new Error('Invalid or expired password reset token');
+  }
+
+  if (decoded.purpose !== 'password-reset') {
+    throw new Error('Invalid token purpose');
+  }
+
+  const user = await userRepo.getUserById(decoded.userId);
+  if (!user) {
+    throw new Error('User not found');
+  }
+  if (user.auth_provider !== 'LOCAL') {
+    throw new Error('Password reset is only supported for local accounts');
+  }
+
+  const newPasswordHash = await bcrypt.hash(newPassword, SALT_ROUNDS);
+  await userRepo.updatePassword(user.id, newPasswordHash);
+
+  await sessionRepo.deleteAllSessionsForUser(user.id);
+
+  await auditRepo.logAction(user.id, 'PASSWORD_RESET', 'USER', user.id);
+};
+

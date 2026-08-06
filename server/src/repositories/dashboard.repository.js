@@ -17,7 +17,7 @@ export const getStats = async (userId) => {
   
   assetsRes.rows.forEach(row => {
     if (row.asset_type === 'PROJECT') projectsCount = parseInt(row.count, 10);
-    if (row.asset_type === 'EXPERIENCE') experienceCount = parseInt(row.count, 10);
+    if (row.asset_type === 'WORK_EXPERIENCE') experienceCount = parseInt(row.count, 10);
     if (row.asset_type === 'ACHIEVEMENT') achievementsCount = parseInt(row.count, 10);
     if (row.asset_type === 'RESEARCH') researchCount = parseInt(row.count, 10);
     if (row.asset_type === 'RESUME_ASSET') resumeAssetsCount = parseInt(row.count, 10);
