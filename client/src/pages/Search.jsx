@@ -42,7 +42,7 @@ export default function Search() {
   const getAssetPath = (type) => {
     switch(type) {
       case 'PROJECT': return '/dashboard/projects';
-      case 'EXPERIENCE': return '/dashboard/experience';
+      case 'WORK_EXPERIENCE': return '/dashboard/experience';
       case 'SKILL': return '/dashboard/skills';
       case 'ACHIEVEMENT': return '/dashboard/achievements';
       case 'RESEARCH': return '/dashboard/research';
