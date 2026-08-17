@@ -21,7 +21,8 @@ export default function DashboardLayout() {
     </div>
   );
   
-  if (!user) return <Navigate to="/login" replace />;
+  if (!user) return <Navigate to="/" replace />;
+
 
   return (
     <div className="flex h-screen bg-bg-primary font-body text-heading">
