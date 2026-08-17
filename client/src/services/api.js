@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
+
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api/v1',
+  baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json'
   }
@@ -62,7 +64,7 @@ api.interceptors.response.use(
       }
 
       try {
-        const { data } = await axios.post('http://localhost:5000/api/v1/auth/refresh', {
+        const { data } = await axios.post(`${API_URL}/auth/refresh`, {
           refreshToken,
           sessionId
         });
@@ -92,3 +94,4 @@ api.interceptors.response.use(
 );
 
 export default api;
+

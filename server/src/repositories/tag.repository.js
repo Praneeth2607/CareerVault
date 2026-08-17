@@ -3,30 +3,49 @@ import { query } from '../db/index.js';
 export const upsertTags = async (userId, tagNames) => {
   if (!tagNames || tagNames.length === 0) return [];
   
-  // We need to insert ignoring conflicts, then fetch the IDs
-  // To optimize, we can use ON CONFLICT DO NOTHING
+  const existingTags = await getTagsForUser(userId);
+  
+  const normalize = (name) => {
+    return name
+      .toLowerCase()
+      .replace(/[\s\.-]/g, '')
+      .replace(/js$/, '');
+  };
   
   const ids = [];
   for (const name of tagNames) {
-    const formattedName = name.trim().toLowerCase();
-    let res = await query(
-      `INSERT INTO tags (user_id, name) VALUES ($1, $2) ON CONFLICT (user_id, name) DO NOTHING RETURNING id`,
-      [userId, formattedName]
-    );
+    const trimmed = name.trim();
+    if (!trimmed) continue;
     
-    if (res.rows.length > 0) {
-      ids.push(res.rows[0].id);
+    const norm = normalize(trimmed);
+    const matched = existingTags.find(t => normalize(t.name) === norm);
+    
+    if (matched) {
+      ids.push(matched.id);
     } else {
-      // It already existed, so we fetch it
-      res = await query(`SELECT id FROM tags WHERE user_id = $1 AND name = $2`, [userId, formattedName]);
+      const res = await query(
+        `INSERT INTO tags (user_id, name) VALUES ($1, $2) ON CONFLICT (user_id, name) DO NOTHING RETURNING id`,
+        [userId, trimmed]
+      );
+      
+      let tagId;
       if (res.rows.length > 0) {
-        ids.push(res.rows[0].id);
+        tagId = res.rows[0].id;
+      } else {
+        const selectRes = await query(`SELECT id FROM tags WHERE user_id = $1 AND name = $2`, [userId, trimmed]);
+        tagId = selectRes.rows[0]?.id;
+      }
+      
+      if (tagId) {
+        ids.push(tagId);
+        existingTags.push({ id: tagId, user_id: userId, name: trimmed });
       }
     }
   }
   
   return ids;
 };
+
 
 export const syncAssetTags = async (assetId, tagIds) => {
   // First delete all existing tags for this asset

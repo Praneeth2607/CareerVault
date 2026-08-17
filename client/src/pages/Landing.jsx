@@ -59,10 +59,6 @@ export default function Landing() {
 
       {/* Hero Section */}
       <section className="max-w-4xl mx-auto text-center px-6 py-20 md:py-32 space-y-8">
-        <div className="inline-flex items-center space-x-2 px-3 py-1 bg-secondary/15 rounded-full text-xs font-semibold text-secondary tracking-wide uppercase">
-          <Sparkles className="w-3.5 h-3.5" />
-          <span>Modern Editorial Repository</span>
-        </div>
         <h1 className="text-5xl md:text-7xl font-heading font-bold text-heading leading-tight tracking-tight max-w-3xl mx-auto">
           The minimalist vault for your career achievements.
         </h1>
