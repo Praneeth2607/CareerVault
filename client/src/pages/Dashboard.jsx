@@ -91,25 +91,12 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-12 max-w-6xl mx-auto pb-12">
-      {/* Greeting Header & Universal Search */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-        <div>
-          <h2 className="text-4xl font-heading font-bold text-heading">Overview</h2>
-          <p className="text-heading/60 mt-1.5 font-light">Your professional digital ledger at a glance.</p>
-        </div>
-        
-        {/* Dashboard search bar */}
-        <form onSubmit={handleSearchSubmit} className="relative w-full max-w-md">
-          <input 
-            type="text" 
-            placeholder="Search all credentials and assets..." 
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full h-12 pl-12 pr-4 bg-bg-secondary rounded-input border border-border outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 text-heading text-sm transition-all duration-200"
-          />
-          <Search className="absolute left-4 top-4 w-4 h-4 text-heading/40" />
-        </form>
+      {/* Greeting Header */}
+      <div>
+        <h2 className="text-4xl font-heading font-bold text-heading">Overview</h2>
+        <p className="text-heading/60 mt-1.5 font-light">Your professional digital ledger at a glance.</p>
       </div>
+
 
       {/* Asset Overview - Grid of stats */}
       <div className="grid grid-cols-2 md:grid-cols-6 gap-4">

@@ -39,9 +39,6 @@ const syncTagsFromAssets = async (userId) => {
 };
 
 export const getStats = async (userId) => {
-  // Sync tags dynamically from JSONB data to support historical and new data
-  await syncTagsFromAssets(userId);
-
   const assetsQuery = `
     SELECT asset_type, COUNT(*) as count 
     FROM assets 
