@@ -12,10 +12,11 @@ export default {
         heading: "#432818",
         accent: "#99582A",
         bg: {
-          primary: "#FFFAEE",
-          secondary: "#FFF5DC",
-          card: "#FFF8E6",
+          primary: "#FAF7F2",
+          secondary: "#F3EEE7",
+          card: "#F3EEE7",
         },
+        border: "#E6DED3",
         semantic: {
           success: "#3A7D44",
           warning: "#E09F3E",
@@ -24,17 +25,19 @@ export default {
         }
       },
       borderRadius: {
-        'sm': '12px',
-        'md': '18px',
-        'lg': '24px',
-        'xl': '32px',
+        'sm': '8px',
+        'md': '12px',
+        'lg': '18px',
+        'xl': '20px',
         'button': '18px',
-        'card': '24px',
-        'modal': '28px'
+        'card': '20px',
+        'modal': '20px',
+        'input': '16px'
       },
       boxShadow: {
-        'raised': '-8px -8px 16px rgba(255,255,255,0.7), 8px 8px 16px rgba(67,40,24,0.15)',
-        'pressed': 'inset 4px 4px 8px rgba(67,40,24,0.15), inset -4px -4px 8px rgba(255,255,255,0.8)',
+        'raised': 'none',
+        'pressed': 'none',
+        'hover': 'none',
       },
       fontFamily: {
         heading: ['Outfit', 'sans-serif'],
@@ -44,3 +47,4 @@ export default {
   },
   plugins: [],
 }
+

@@ -100,34 +100,34 @@ export default function Login() {
 
   return (
     <div className="flex h-screen items-center justify-center bg-bg-primary font-body relative overflow-hidden">
-      <div className="w-full max-w-md bg-bg-secondary p-8 rounded-modal shadow-raised z-10 relative">
+      <div className="w-full max-w-md bg-bg-secondary p-8 rounded-modal border border-border z-10 relative">
         
         {view === 'login' && (
           <>
-            <h1 className="text-3xl font-heading font-bold text-center text-primary mb-2">Welcome Back</h1>
-            <p className="text-center text-heading/70 mb-8">Securely access your CareerVault.</p>
+            <h1 className="text-3xl font-heading font-bold text-center text-heading mb-2">Welcome Back</h1>
+            <p className="text-center text-heading/60 mb-8 font-light text-sm">Securely access your CareerVault.</p>
             
-            {error && <div className="mb-4 p-3 bg-semantic-error/10 text-semantic-error rounded-md text-sm text-center">{error}</div>}
+            {error && <div className="mb-4 p-3 bg-semantic-error/5 border border-semantic-error/15 text-semantic-error rounded-md text-sm text-center font-medium">{error}</div>}
             
             <form onSubmit={handleLoginSubmit} className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-heading mb-1">Email</label>
+                <label className="block text-xs font-semibold text-heading/55 uppercase tracking-wider mb-2">Email</label>
                 <input 
                   type="email" 
                   required
-                  className="w-full h-12 px-4 bg-bg-primary rounded-md shadow-pressed outline-none focus:ring-2 focus:ring-primary/20 text-heading placeholder-heading/40 transition-all"
+                  className="w-full h-12 px-4 bg-bg-primary border border-border rounded-input outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 text-heading text-sm placeholder-heading/40 transition-all duration-200"
                   placeholder="you@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div>
-                <div className="flex justify-between items-center mb-1">
-                  <label className="block text-sm font-medium text-heading">Password</label>
+                <div className="flex justify-between items-center mb-2">
+                  <label className="block text-xs font-semibold text-heading/55 uppercase tracking-wider">Password</label>
                   <button 
                     type="button" 
                     onClick={() => setView('forgot')}
-                    className="text-xs text-primary hover:underline font-medium"
+                    className="text-xs text-primary hover:underline font-semibold"
                   >
                     Forgot password?
                   </button>
@@ -136,7 +136,7 @@ export default function Login() {
                   <input 
                     type={showPassword ? "text" : "password"} 
                     required
-                    className="w-full h-12 pl-4 pr-12 bg-bg-primary rounded-md shadow-pressed outline-none focus:ring-2 focus:ring-primary/20 text-heading placeholder-heading/40 transition-all"
+                    className="w-full h-12 pl-4 pr-12 bg-bg-primary border border-border rounded-input outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 text-heading text-sm placeholder-heading/40 transition-all duration-200"
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -144,7 +144,7 @@ export default function Login() {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-3 text-heading/40 hover:text-heading/70 transition-colors"
+                    className="absolute right-3.5 top-3.5 text-heading/40 hover:text-heading/70 transition-colors"
                   >
                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </button>
@@ -153,14 +153,14 @@ export default function Login() {
               <button 
                 type="submit" 
                 disabled={loading}
-                className="w-full h-12 bg-primary text-bg-secondary font-medium rounded-button hover:bg-primary/90 hover:-translate-y-0.5 transition-all shadow-md mt-4 disabled:opacity-50"
+                className="w-full h-12 bg-primary text-bg-primary font-semibold rounded-button hover:bg-primary/95 hover:-translate-y-[1px] active:translate-y-0 transition-all duration-200 shadow-sm mt-4 disabled:opacity-50"
               >
                 {loading ? 'Logging In...' : 'Log In'}
               </button>
             </form>
             
-            <div className="mt-6 text-center text-sm text-heading/70">
-              Don't have an account? <Link to="/register" className="text-primary hover:underline font-medium">Create one</Link>
+            <div className="mt-6 text-center text-sm text-heading/60 font-light">
+              Don't have an account? <Link to="/register" className="text-primary hover:underline font-semibold ml-1">Create one</Link>
             </div>
           </>
         )}
@@ -169,25 +169,25 @@ export default function Login() {
           <>
             <button 
               onClick={() => { setView('login'); setError(''); setSuccess(''); setSimulatedLink(''); }}
-              className="flex items-center text-xs text-heading/60 hover:text-heading mb-4 transition-colors"
+              className="flex items-center text-xs font-semibold text-heading/60 hover:text-primary mb-5 transition-colors"
             >
-              <ArrowLeft className="w-4 h-4 mr-1" /> Back to Login
+              <ArrowLeft className="w-4 h-4 mr-1.5" /> Back to Login
             </button>
             
-            <h1 className="text-3xl font-heading font-bold text-center text-primary mb-2">Forgot Password</h1>
-            <p className="text-center text-heading/70 mb-8">Enter your email and we'll simulate sending a reset link.</p>
+            <h1 className="text-3xl font-heading font-bold text-center text-heading mb-2">Forgot Password</h1>
+            <p className="text-center text-heading/60 mb-8 font-light text-sm">Enter your email and we'll simulate sending a reset link.</p>
             
-            {error && <div className="mb-4 p-3 bg-semantic-error/10 text-semantic-error rounded-md text-sm text-center">{error}</div>}
-            {success && <div className="mb-4 p-3 bg-semantic-success/10 text-semantic-success rounded-md text-sm text-center">{success}</div>}
+            {error && <div className="mb-4 p-3 bg-semantic-error/5 border border-semantic-error/15 text-semantic-error rounded-md text-sm text-center font-medium">{error}</div>}
+            {success && <div className="mb-4 p-3 bg-semantic-success/5 border border-semantic-success/15 text-semantic-success rounded-md text-sm text-center font-medium">{success}</div>}
             
             <form onSubmit={handleForgotSubmit} className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-heading mb-1">Email Address</label>
+                <label className="block text-xs font-semibold text-heading/55 uppercase tracking-wider mb-2">Email Address</label>
                 <div className="relative">
                   <input 
                     type="email" 
                     required
-                    className="w-full h-12 pl-4 pr-12 bg-bg-primary rounded-md shadow-pressed outline-none focus:ring-2 focus:ring-primary/20 text-heading placeholder-heading/40 transition-all"
+                    className="w-full h-12 pl-4 pr-12 bg-bg-primary border border-border rounded-input outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 text-heading text-sm placeholder-heading/40 transition-all duration-200"
                     placeholder="you@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -199,18 +199,18 @@ export default function Login() {
               <button 
                 type="submit" 
                 disabled={loading}
-                className="w-full h-12 bg-primary text-bg-secondary font-medium rounded-button hover:bg-primary/90 hover:-translate-y-0.5 transition-all shadow-md mt-4 disabled:opacity-50"
+                className="w-full h-12 bg-primary text-bg-primary font-semibold rounded-button hover:bg-primary/95 hover:-translate-y-[1px] active:translate-y-0 transition-all duration-200 shadow-sm mt-4 disabled:opacity-50"
               >
                 {loading ? 'Sending...' : 'Request Reset Link'}
               </button>
             </form>
 
             {simulatedLink && (
-              <div className="mt-8 p-4 bg-bg-primary rounded-md border border-primary/10 space-y-2">
-                <p className="text-xs font-semibold text-primary uppercase tracking-wider">Development Help (Direct Reset Link):</p>
+              <div className="mt-8 p-4 bg-bg-primary rounded-input border border-border space-y-2">
+                <p className="text-xs font-bold text-primary uppercase tracking-wider">Development Help (Direct Reset Link):</p>
                 <a 
                   href={simulatedLink} 
-                  className="text-sm text-accent hover:underline break-all block"
+                  className="text-sm text-accent hover:underline break-all block font-mono"
                 >
                   {simulatedLink}
                 </a>
@@ -221,20 +221,20 @@ export default function Login() {
 
         {view === 'reset' && (
           <>
-            <h1 className="text-3xl font-heading font-bold text-center text-primary mb-2">Reset Password</h1>
-            <p className="text-center text-heading/70 mb-8">Enter your new secure password.</p>
+            <h1 className="text-3xl font-heading font-bold text-center text-heading mb-2">Reset Password</h1>
+            <p className="text-center text-heading/60 mb-8 font-light text-sm">Enter your new secure password.</p>
             
-            {error && <div className="mb-4 p-3 bg-semantic-error/10 text-semantic-error rounded-md text-sm text-center">{error}</div>}
-            {success && <div className="mb-4 p-3 bg-semantic-success/10 text-semantic-success rounded-md text-sm text-center">{success}</div>}
+            {error && <div className="mb-4 p-3 bg-semantic-error/5 border border-semantic-error/15 text-semantic-error rounded-md text-sm text-center font-medium">{error}</div>}
+            {success && <div className="mb-4 p-3 bg-semantic-success/5 border border-semantic-success/15 text-semantic-success rounded-md text-sm text-center font-medium">{success}</div>}
             
             <form onSubmit={handleResetSubmit} className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-heading mb-1">New Password</label>
+                <label className="block text-xs font-semibold text-heading/55 uppercase tracking-wider mb-2">New Password</label>
                 <div className="relative">
                   <input 
                     type={showNewPassword ? "text" : "password"} 
                     required
-                    className="w-full h-12 pl-4 pr-12 bg-bg-primary rounded-md shadow-pressed outline-none focus:ring-2 focus:ring-primary/20 text-heading placeholder-heading/40 transition-all"
+                    className="w-full h-12 pl-4 pr-12 bg-bg-primary border border-border rounded-input outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 text-heading text-sm placeholder-heading/40 transition-all duration-200"
                     placeholder="••••••••"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
@@ -242,7 +242,7 @@ export default function Login() {
                   <button
                     type="button"
                     onClick={() => setShowNewPassword(!showNewPassword)}
-                    className="absolute right-3 top-3 text-heading/40 hover:text-heading/70 transition-colors"
+                    className="absolute right-3.5 top-3.5 text-heading/40 hover:text-heading/70 transition-colors"
                   >
                     {showNewPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </button>
@@ -250,11 +250,11 @@ export default function Login() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-heading mb-1">Confirm New Password</label>
+                <label className="block text-xs font-semibold text-heading/55 uppercase tracking-wider mb-2">Confirm New Password</label>
                 <input 
                   type="password" 
                   required
-                  className="w-full h-12 px-4 bg-bg-primary rounded-md shadow-pressed outline-none focus:ring-2 focus:ring-primary/20 text-heading placeholder-heading/40 transition-all"
+                  className="w-full h-12 px-4 bg-bg-primary border border-border rounded-input outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 text-heading text-sm placeholder-heading/40 transition-all duration-200"
                   placeholder="••••••••"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
@@ -264,7 +264,7 @@ export default function Login() {
               <button 
                 type="submit" 
                 disabled={loading}
-                className="w-full h-12 bg-primary text-bg-secondary font-medium rounded-button hover:bg-primary/90 hover:-translate-y-0.5 transition-all shadow-md mt-4 disabled:opacity-50"
+                className="w-full h-12 bg-primary text-bg-primary font-semibold rounded-button hover:bg-primary/95 hover:-translate-y-[1px] active:translate-y-0 transition-all duration-200 shadow-sm mt-4 disabled:opacity-50"
               >
                 {loading ? 'Resetting...' : 'Update Password'}
               </button>
@@ -276,4 +276,3 @@ export default function Login() {
     </div>
   );
 }
-

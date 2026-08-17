@@ -8,13 +8,14 @@ import Register from './pages/Register';
 import AssetPage from './pages/AssetPage';
 import Settings from './pages/Settings';
 import Search from './pages/Search';
+import Landing from './pages/Landing';
 
 export default function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           

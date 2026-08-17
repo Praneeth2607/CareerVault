@@ -4,9 +4,25 @@
 
 @layer base {
   body {
-    @apply bg-bg-primary text-heading font-body antialiased;
+    @apply bg-bg-primary text-heading font-body antialiased selection:bg-primary/10 selection:text-primary;
+    background-color: #FAF7F2;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading text-heading;
+    @apply font-heading text-heading tracking-tight;
+  }
+  
+  /* Accessible visible focus ring */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-primary/40 ring-offset-2 ring-offset-bg-primary;
   }
 }
+
+@layer utilities {
+  /* Motion transitions as defined: 180-250ms, opacity, translateY, border color */
+  .transition-editorial {
+    transition-property: opacity, transform, border-color, background-color;
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+

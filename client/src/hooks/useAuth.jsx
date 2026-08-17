@@ -8,14 +8,25 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      // In a real app, call /api/v1/profile to validate token and fetch full user details.
-      // For now, simulate authenticated state.
-      setUser({ id: 'dummy', username: 'User' });
-    }
-    setLoading(false);
+    const checkAuth = async () => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        try {
+          const res = await api.get('/profile');
+          setUser(res.data.data);
+        } catch (e) {
+          console.error('Failed to validate token/profile', e);
+          localStorage.removeItem('token');
+          localStorage.removeItem('refreshToken');
+          localStorage.removeItem('sessionId');
+          setUser(null);
+        }
+      }
+      setLoading(false);
+    };
+    checkAuth();
   }, []);
+
 
   const login = async (email, password) => {
     const response = await api.post('/auth/login', { email, password });

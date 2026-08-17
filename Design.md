@@ -1,967 +1,201 @@
-# Design.md
-
 # CareerVault Design System
 
-**Version:** 1.0
-
-**Status:** Approved
+**Version:** 2.0  
+**Status:** Approved  
+**Language:** Modern Editorial Minimal  
 
 ---
 
 # 1. Design Philosophy
 
-CareerVault is designed as a premium productivity platform focused on trust, organization, and clarity. Users store professional information that may represent years of work, including projects, internships, research, certifications, and achievements. The interface should reinforce confidence through a calm, refined visual language.
+CareerVault is designed as a premium, typography-first professional asset repository. It aims to deliver a calm, clear, and highly professional space for users to document their lifetime achievements, projects, skills, research, and work experiences. The visual design is influenced by clean editorial styles (like Linear, Notion, and Stripe documentation), with a warmer personality suited for career portfolios.
 
-The design should never feel cluttered or overly decorative. Every element must serve a purpose and help users retrieve or manage information quickly.
-
-### Design Principles
-
-* Simplicity over complexity.
-* Consistency across every screen.
-* Security should be visible.
-* Information should be easy to scan.
-* Actions should require minimal effort.
-* Every component should feel responsive and polished.
+The design principles are:
+* **Typography-first**: Visual hierarchy is created using whitespace and typography size, not shadows or colored panels.
+* **Subtle Borders over Shadows**: Containers use thin `1px` borders instead of soft neomorphic shadows.
+* **Spacious Gaps**: Generous layout margins and spacing systems.
+* **Handcrafted Quality**: Visual layouts are structured, deliberate, and clean.
 
 ---
 
 # 2. Visual Identity
 
 ## Brand Personality
-
-CareerVault should feel:
-
-* Professional
-* Trustworthy
-* Warm
-* Modern
-* Organized
+* Premium
 * Calm
+* Professional
+* Warm
+* Minimal
+* Typography-first
 
-Avoid styles that appear playful, overly futuristic, or heavily animated.
-
----
-
-# 3. Design Language
-
-The application uses **Soft Neomorphism**.
-
-Characteristics:
-
-* Rounded corners
-* Gentle shadows
-* Soft lighting
-* Low contrast surfaces
-* Comfortable spacing
-* Minimal borders
-
-Avoid:
-
-* Glassmorphism
-* Neon effects
-* Heavy gradients
-* Sharp edges
-* Excessive shadows
+Avoid styles that appear playful, heavily animated, neomorphic, or generic "AI dashboard" templates.
 
 ---
 
-# 4. Color Palette
+# 3. Color Palette
 
-## Primary
+Never use a dark theme. Never use bright gradients as backgrounds.
 
-Dark Wine
-
-```
+## Primary Action Color
+**Dark Wine**
+```text
 #6F1D1B
 ```
+Used for:
+* Primary action buttons
+* Active navigation text
+* Key headers
 
-Primary action buttons
-
-Active states
-
-Important highlights
-
----
-
-## Secondary
-
-Camel
-
-```
+## Secondary Accent Color
+**Camel**
+```text
 #BB9457
 ```
-
-Secondary buttons
-
-Badges
-
-Navigation highlights
-
----
+Used for:
+* Secondary highlights
+* Focus borders
+* Badges
 
 ## Heading Color
-
-Dark Coffee
-
-```
+**Dark Coffee**
+```text
 #432818
 ```
+Used for:
+* All titles and primary headings
+* Standard text colors
+* Primary icons
 
-Primary headings
-
-Icons
-
-Navigation text
-
----
-
-## Accent
-
-Chocolate Brown
-
+## Border Color
+**Subtle Sand**
+```text
+#E6DED3
 ```
-#99582A
-```
+Used for:
+* 1px container dividers
+* Input fields borders (inactive)
+* Card outlines
 
-Hover states
-
-Charts
-
-Interactive accents
-
----
-
-## Background
-
-Primary Background
-
-```
-#FFFAEE
-```
-
-Secondary Background
-
-```
-#FFF5DC
-```
-
-Card Background
-
-```
-#FFF8E6
-```
-
----
+## Background Colors
+* **Primary Background**: `#FAF7F2` (Warm linen canvas)
+* **Surface/Card Background**: `#F3EEE7` (Slightly warmer, soft clay surface)
 
 ## Semantic Colors
-
-Success
-
-```
-#3A7D44
-```
-
-Warning
-
-```
-#E09F3E
-```
-
-Error
-
-```
-#C44536
-```
-
-Info
-
-```
-#457B9D
-```
+* **Success**: `#3A7D44`
+* **Warning**: `#E09F3E`
+* **Error**: `#C44536`
+* **Info**: `#457B9D`
 
 ---
 
-# 5. Typography
+# 4. Typography
 
 ## Font Family
+* **Headings**: `Outfit`, sans-serif (Bold, high tracking-tight, primary visual weight)
+* **Body Text**: `Inter`, sans-serif (Clean, readable, generous line height)
 
-### Headings
-
-Outfit
-
-Fallback
-
-```
-sans-serif
-```
-
-### Body
-
-Inter
-
-Fallback
-
-```
-sans-serif
-```
+## Font Weight Scale
+* Regular: `400`
+* Medium: `500`
+* Semi Bold: `600`
+* Bold: `700`
 
 ---
 
-## Font Scale
+# 5. Spacing System
 
-Display
+A consistent **8px** spacing system is utilized. All padding, margins, and gaps must follow this scale:
+* `8px`
+* `16px`
+* `24px`
+* `32px`
+* `40px`
+* `48px`
+* `64px`
+* `80px`
 
-48px
-
-Hero Heading
-
-40px
-
-H1
-
-32px
-
-H2
-
-28px
-
-H3
-
-24px
-
-H4
-
-20px
-
-Body Large
-
-18px
-
-Body
-
-16px
-
-Small
-
-14px
-
-Caption
-
-12px
+Whitespace is used as the primary tool to group items and create visual hierarchies.
 
 ---
 
-## Font Weight
+# 6. Border Radius
 
-Regular
-
-400
-
-Medium
-
-500
-
-Semi Bold
-
-600
-
-Bold
-
-700
+Rounded corners should be kept between **18px and 20px** for core containers.
+* **Cards**: `20px`
+* **Buttons**: `18px`
+* **Modals**: `20px`
+* **Inputs**: `16px`
 
 ---
 
-# 6. Spacing System
+# 7. Shadows
 
-Base Unit
-
-```
-8px
-```
-
-Spacing Scale
-
-```
-4
-
-8
-
-12
-
-16
-
-24
-
-32
-
-40
-
-48
-
-64
-
-80
-```
+Do **not** use default shadows or elevation on cards and containers. Use `1px` subtle borders (`#E6DED3`) on all panels.
 
 ---
 
-# 7. Border Radius
+# 8. Component Specifications
 
-Small
+## Buttons
+* **Primary**: Filled with Dark Wine (`#6F1D1B`), text colored in Linen (`#FAF7F2`). Rounded `18px`.
+* **Secondary**: Transparent background, border outline in Dark Wine or Camel, text in Heading color.
+* **Ghost**: Text-only, light padding, transparent background. Focus ring on tabs.
 
-```
-12px
-```
+## Cards
+* Warm surface background (`#F3EEE7`).
+* Thin border outline (`#E6DED3`).
+* No shadows.
+* Hover state transitions opacity or shifts border color.
 
-Medium
+## Inputs
+* Soft filled background (`#F3EEE7`).
+* Thin borders (`#E6DED3`).
+* Rounded `16px`.
+* Active focus state shows a visible focus ring (`ring-2 ring-primary/40`).
 
-```
-18px
-```
-
-Large
-
-```
-24px
-```
-
-Extra Large
-
-```
-32px
-```
-
-Buttons
-
-```
-18px
-```
-
-Cards
-
-```
-24px
-```
-
-Modal
-
-```
-28px
-```
+## Modals
+* Centered floating panel (`max-w-2xl`).
+* Blurred backdrop overlay.
+* Clean spacing with Outfit headers and a sticky footer containing form actions.
 
 ---
 
-# 8. Shadows
+# 9. Layouts
 
-Raised Component
+## Landing Page
+* **Minimal navigation**: Topbar with clean logo and login triggers.
+* **Hero**: Strong typography-first headings, bold descriptive summary, and dual CTA buttons.
+* **Feature Grid**: Simple structured grids presenting modules.
+* **Product Preview**: Beautiful inline HTML preview components mimicking the application dashboard.
+* **Security Section**: Reassurance of active session monitoring.
+* **Footer**: Clean copyright and links.
 
-```
--8px -8px 16px rgba(255,255,255,0.7)
+## Dashboard
+* **Greeting Header**: Personalized greeting in large Outfit font.
+* **Universal Search**: Centered input box with visible focus ring.
+* **Asset Overview**: Horizontal grid of asset stats.
+* **Recent Assets**: List of the 5 most recently updated records.
+* **Quick Actions**: Prompt triggers for creating new entries.
 
-8px 8px 16px rgba(67,40,24,0.15)
-```
-
-Pressed Component
-
-```
-inset 4px 4px 8px rgba(67,40,24,0.15)
-
-inset -4px -4px 8px rgba(255,255,255,0.8)
-```
-
-Hover
-
-Increase shadow by approximately 20%.
-
----
-
-# 9. Icons
-
-Library
-
-Lucide React
-
-Style
-
-Outline
-
-Stroke Width
-
-2px
-
-Icon Size
-
-16
-
-20
-
-24
-
-32
-
-Do not mix icon libraries.
+## Asset Editor
+* **Document-like Experience**: Centered form, comfortable reading width, ample spacing.
+* **Sticky Save Button**: In the form footer, always visible.
+* **Individual Copy Buttons**: Copy icon next to every single field so values can be extracted immediately.
 
 ---
 
-# 10. Buttons
+# 10. Motion
 
-## Primary Button
-
-Background
-
-Dark Wine
-
-Text
-
-Light Apricot
-
-Radius
-
-18px
-
-Padding
-
-```
-14px 24px
-```
-
-Hover
-
-Slight lift
-
-Darker background
-
-Transition
-
-200ms
+Use subtle transitions only. No bounce animations.
+* **Duration**: 180ms - 250ms
+* **Properties**: Opacity, small translateY (e.g. `translate-y-[-2px]`), border color.
+* Respect user preferences for reduced motion.
 
 ---
 
-## Secondary Button
-
-Camel
-
-Dark Coffee text
-
-Raised appearance
-
----
-
-## Ghost Button
-
-Transparent
-
-Dark Coffee text
-
-Hover
-
-Light background
-
----
-
-## Danger Button
-
-Dark Wine
-
-White text
-
-Confirmation required before destructive actions.
-
----
-
-# 11. Inputs
-
-Style
-
-Inset Neomorphism
-
-Height
-
-48px
-
-Radius
-
-16px
-
-Padding
-
-16px
-
-Focus
-
-Dark Wine outline
-
-Helper text below field
-
-Password visibility toggle
-
-Character count for long text
-
----
-
-# 12. Cards
-
-Every major feature uses cards.
-
-Cards contain
-
-Title
-
-Description
-
-Actions
-
-Metadata
-
-Soft elevation
-
-Hover lift
-
-Rounded corners
-
----
-
-# 13. Navigation
-
-Desktop
-
-Top Navigation
-
-Logo
-
-Features
-
-About
-
-Pricing
-
-Contact
-
-Login
-
-After login
-
-Dashboard
-
-Projects
-
-Experience
-
-Skills
-
-Research
-
-Achievements
-
-Settings
-
-Profile
-
-Logout
-
----
-
-# 14. Landing Page
-
-Sections
-
-Hero
-
-Features
-
-Benefits
-
-Testimonials (future)
-
-FAQ
-
-Call To Action
-
-Footer
-
----
-
-## Hero
-
-Large headline
-
-Supporting text
-
-Primary button
-
-Secondary button
-
-Illustration
-
----
-
-# 15. Authentication Modal
-
-Centered
-
-Blurred background
-
-Large card
-
-Contains
-
-Login
-
-Register
-
-Forgot Password
-
-Google
-
-GitHub
-
-Divider
-
-Remember Me
-
-Privacy statement
-
----
-
-# 16. Dashboard
-
-Header
-
-Greeting
-
-Search
-
-Notification
-
-Profile
-
----
-
-Cards
-
-Projects
-
-Experience
-
-Skills
-
-Research
-
-Achievements
-
-Recent Activity
-
-Quick Actions
-
----
-
-# 17. Module Pages
-
-Every module follows the same structure.
-
-Header
-
-Search
-
-Filters
-
-Sort
-
-Grid/List toggle
-
-Content
-
-Pagination
-
-Floating Add button
-
----
-
-# 18. Tables
-
-Rounded
-
-Soft borders
-
-Alternating row colors
-
-Sticky header
-
-Search
-
-Pagination
-
-Bulk selection
-
----
-
-# 19. Forms
-
-Maximum width
-
-720px
-
-Grouped into sections
-
-Validation below input
-
-Autosave indicator (future)
-
-Progress indicator for long forms
-
----
-
-# 20. Modals
-
-Used for
-
-Delete confirmation
-
-Edit
-
-Quick Add
-
-Session management
-
-Width
-
-640px
-
-Rounded
-
-28px
-
-Soft shadow
-
-Escape closes modal
-
----
-
-# 21. Toast Notifications
-
-Position
-
-Top Right
-
-Duration
-
-3 seconds
-
-Types
-
-Success
-
-Warning
-
-Error
-
-Information
-
----
-
-# 22. Animations
-
-Duration
-
-200–250ms
-
-Use
-
-Fade
-
-Scale
-
-Slide
-
-Hover Lift
-
-Never animate layout unnecessarily.
-
-Respect the user's reduced motion preference.
-
----
-
-# 23. Responsive Breakpoints
-
-Mobile
-
-0–639px
-
-Tablet
-
-640–1023px
-
-Desktop
-
-1024–1439px
-
-Large Desktop
-
-1440px+
-
----
-
-# 24. Accessibility
-
-Minimum contrast ratio
-
-WCAG AA
-
-Keyboard navigation
-
-Visible focus states
-
-ARIA labels
-
-Screen reader compatibility
-
-Large click targets
-
-Minimum touch target
-
-44×44px
-
----
-
-# 25. Empty States
-
-Every page should provide meaningful empty states.
-
-Example:
-
-Projects
-
-"No projects yet."
-
-Button
-
-Create Your First Project
-
-Avoid empty screens.
-
----
-
-# 26. Loading States
-
-Skeleton loaders
-
-Never use large spinning indicators.
-
-Use shimmer placeholders where possible.
-
----
-
-# 27. Error States
-
-Friendly messages
-
-Recovery action
-
-Retry button
-
-Support link
-
-Never expose server errors directly to users.
-
----
-
-# 28. Security Indicators
-
-Display:
-
-* Last login
-* Active sessions
-* Connected providers
-* Password last updated
-* Two-factor authentication status (future)
-
-These indicators should be visible within account settings to reassure users.
-
----
-
-# 29. Future Design Extensions
-
-The design system should accommodate future additions without major redesign.
-
-Planned extensions include:
-
-* AI assistant
-* Resume builder
-* Browser extension
-* Public portfolio pages
-* Team workspaces
-* Dark mode
-* Mobile application
-
----
-
-# 30. Tailwind CSS Design Tokens
-
-## Colors
-
-Primary
-
-```
-dark_wine
-```
-
-Secondary
-
-```
-camel
-```
-
-Accent
-
-```
-chocolate_brown
-```
-
-Heading
-
-```
-dark_coffee
-```
-
-Background
-
-```
-light_apricot
-```
-
-## Radius
-
-```
-rounded-xl
-
-rounded-2xl
-
-rounded-3xl
-```
-
-## Shadows
-
-```
-shadow-soft
-
-shadow-neomorphic
-
-shadow-pressed
-```
-
-Custom utilities should be defined in the Tailwind configuration to ensure consistent styling across the application.
-
----
-
-# 31. Design Goals
-
-Every screen should answer these questions:
-
-* Can the user understand the purpose within five seconds?
-* Is the primary action obvious?
-* Is the layout consistent with the rest of the application?
-* Does the interface communicate trust?
-* Is the content easy to scan?
-* Can the user complete their task with minimal clicks?
-
-If the answer to any of these questions is "No," the design should be revised before implementation.
+# 11. Accessibility
+
+* **Contrast**: All elements must satisfy WCAG AA contrast.
+* **Touch Targets**: Minimum target size of `44px × 44px`.
+* **Focus States**: Clear focus outline (`ring-2 ring-primary/40`) on keyboard navigation.
+* **Aria Attributes**: Meaningful empty states and description text.
